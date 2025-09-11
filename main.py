@@ -32,14 +32,10 @@ while game_is_on:
     snake_head_pos = my_snake.move()
     
     if my_snake.head.distance(my_food) < 15: # distance is a method of Turtle class
-        print("nyammm nyammm   nyammm")
+        # snake_head_pos hits food_pos in distance < 15
         my_food.eat()
         my_snake.grow() 
     
-    if int(snake_head_pos[0]) == int(my_food.pos[0]) and int(snake_head_pos[1]) == int(my_food.pos[1]):
-        print(f"Food: {snake_head_pos}, \nSnake: {my_snake}")
-        #my_food.eat()
-        #my_snake.grow()
     time.sleep(0.1)
 
 screen.exitonclick()
