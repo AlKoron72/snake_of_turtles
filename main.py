@@ -6,6 +6,7 @@ from score import Score
 
 SEGMENT_SIZE = 20
 FIELD_SIZE = SEGMENT_SIZE * 30
+WALL_COLLISION = True
 
 screen = Screen()
 screen.setup(width=FIELD_SIZE, height=FIELD_SIZE)

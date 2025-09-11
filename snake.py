@@ -2,8 +2,10 @@ from turtle import Turtle
 START_LENGTH = 3
 
 class Snake:
-    def __init__(self, MOVE_DISTANCE: int = 20):
+    def __init__(self, MOVE_DISTANCE: int = 2, FIELD_SIZE: int = 600, WALL_COLLISION: bool = True):
         self.MOVE_DISTANCE = MOVE_DISTANCE
+        self.FIELD_SIZE = FIELD_SIZE
+        self.WALL_COLLISION = WALL_COLLISION
         self.segments = []
         self.create_snake()
         self.head = self.segments[0]
@@ -22,6 +24,7 @@ class Snake:
             new_y = self.segments[seg_num - 1].ycor()
             self.segments[seg_num].goto(new_x, new_y)
         self.head.forward(self.MOVE_DISTANCE)
+        self.detect_collision(self.FIELD_SIZE, self.WALL_COLLISION)
         return self.head.position()
 
     def grow(self):
@@ -40,6 +43,26 @@ class Snake:
             self.head.setheading(180)
         elif direction == "right" and self.head.heading() != 180:
             self.head.setheading(0)
+            
+    def detect_collision(self, FIELD_SIZE: int, WALL_COllISSION: bool = True) -> bool:
+        x, y = self.head.position()
+        half_field = FIELD_SIZE / 2
+        if WALL_COllISSION:
+            if x < -half_field or x > half_field or y < -half_field or y > half_field:
+                return True
+            else:
+                if x < -half_field:
+                    self.head.setx(half_field)
+                elif x > half_field:
+                    self.head.setx(-half_field)
+                if y < -half_field:
+                    self.head.sety(half_field)
+                elif y > half_field:
+                    self.head.sety(-half_field)
+        for segment in self.segments[1:]:
+            if self.head.distance(segment) < 10:
+                return True
+        return False
 
     def __str__(self):
         return f"Snake with {len(self.segments)} segments\nHead at {self.head.position()}"
