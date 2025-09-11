@@ -27,7 +27,11 @@ segments = my_snake.segments
 
 while game_is_on:
     screen.update()
-    my_snake.move()
+    food = my_snake.move()
+    print(f"Food: {food}, \nSnake: {my_snake}")
+    if food:
+        my_food.eat()
+        my_snake.grow()
     time.sleep(0.1)
 
 screen.exitonclick()
