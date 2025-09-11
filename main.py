@@ -2,6 +2,7 @@ import time
 from turtle import Screen
 from snake import Snake
 from food import Food
+from score import Score
 
 SEGMENT_SIZE = 20
 FIELD_SIZE = SEGMENT_SIZE * 30
@@ -16,6 +17,7 @@ game_is_on = True
 
 my_snake = Snake(SEGMENT_SIZE)
 my_food = Food(SEGMENT_SIZE=SEGMENT_SIZE, FIELD_SIZE=FIELD_SIZE)
+my_score = Score()
 
 screen.listen()
 screen.onkey(key="Up", fun=lambda: my_snake.turn("up"))
