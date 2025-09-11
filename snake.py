@@ -1,9 +1,9 @@
 from turtle import Turtle
-MOVE_DISTANCE = super.SEGMENT_SIZE
 START_LENGTH = 5
 
 class Snake:
-    def __init__(self):
+    def __init__(self, MOVE_DISTANCE: int = 20):
+        self.MOVE_DISTANCE = MOVE_DISTANCE
         self.segments = []
         self.create_snake()
         self.head = self.segments[0]
@@ -13,7 +13,7 @@ class Snake:
             new_segment = Turtle("square")
             new_segment.color("white")
             new_segment.penup()
-            new_segment.goto(x=-MOVE_DISTANCE * i, y=0)
+            new_segment.goto(x=-self.MOVE_DISTANCE * i, y=0)
             self.segments.append(new_segment)
 
     def move(self):
@@ -21,7 +21,7 @@ class Snake:
             new_x = self.segments[seg_num - 1].xcor()
             new_y = self.segments[seg_num - 1].ycor()
             self.segments[seg_num].goto(new_x, new_y)
-        self.head.forward(MOVE_DISTANCE)
+        self.head.forward(self.MOVE_DISTANCE)
 
     def grow(self):
         new_segment = Turtle("square")

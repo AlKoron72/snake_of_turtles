@@ -14,7 +14,7 @@ screen.tracer(0)
 
 game_is_on = True
 
-my_snake = Snake()
+my_snake = Snake(SEGMENT_SIZE)
 my_food = Food(SEGMENT_SIZE=SEGMENT_SIZE, FIELD_SIZE=FIELD_SIZE)
 
 screen.listen()
