@@ -1,33 +1,25 @@
 import time
-from turtle import Screen
+from screen_config import setup_screen
 from snake import Snake
 from food import Food
 from score import Score
 
 SEGMENT_SIZE = 20
-FIELD_SIZE = SEGMENT_SIZE * 30 +10
+FIELD_SIZE = SEGMENT_SIZE * 30 + SEGMENT_SIZE
 WALL_COLLISION = True
 
-screen = Screen()
-screen.setup(width=FIELD_SIZE, height=FIELD_SIZE)
-screen.title("Snake Game ")
-screen.bgcolor("black")
-screen.tracer(0)
-
-game_is_on = True
-
+# Snake-Objekt initialisieren
 my_snake = Snake(SEGMENT_SIZE, FIELD_SIZE, WALL_COLLISION)
+
+# Bildschirm und Steuerung einrichten
+screen = setup_screen(FIELD_SIZE, turn_callback=my_snake.turn)
+
+# Andere Objekte initialisieren
 my_food = Food(SEGMENT_SIZE=SEGMENT_SIZE, FIELD_SIZE=FIELD_SIZE)
 my_score = Score(SCREEN_SIZE=FIELD_SIZE)
 
-screen.listen()
-screen.onkey(key="Up", fun=lambda: my_snake.turn("up"))
-screen.onkey(key="Down", fun=lambda: my_snake.turn("down"))
-screen.onkey(key="Left", fun=lambda: my_snake.turn("left"))
-screen.onkey(key="Right", fun=lambda: my_snake.turn("right"))
-
-segments = my_snake.segments
-
+# Spielschleife
+game_is_on = True
 while game_is_on:
     screen.update()
     try:
@@ -40,8 +32,7 @@ while game_is_on:
         my_score.write(f"GAME OVER\n  ({my_score})", align="center", font=("Arial", 24, "bold"))
         break
     
-    if my_snake.head.distance(my_food) < 15: # distance is a method of Turtle class
-        # snake_head_pos hits food_pos in distance < 15
+    if my_snake.head.distance(my_food) < 15:  # distance is a method of Turtle class
         my_food.eat()
         my_snake.grow()
         my_score.increase_score()
@@ -49,4 +40,3 @@ while game_is_on:
     time.sleep(0.08)
 
 screen.exitonclick()
-
