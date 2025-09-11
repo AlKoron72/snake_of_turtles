@@ -24,7 +24,11 @@ class Snake:
             new_y = self.segments[seg_num - 1].ycor()
             self.segments[seg_num].goto(new_x, new_y)
         self.head.forward(self.MOVE_DISTANCE)
-        self.detect_collision(self.FIELD_SIZE, self.WALL_COLLISION)
+        
+        # Check for collision with walls or self
+        if self.detect_collision(self.FIELD_SIZE, self.WALL_COLLISION):
+            raise Exception("Game Over: Collision detected!")
+        
         return self.head.position()
 
     def grow(self):
