@@ -1,5 +1,5 @@
 from turtle import Turtle
-START_LENGTH = 5
+START_LENGTH = 3
 
 class Snake:
     def __init__(self, MOVE_DISTANCE: int = 20):
@@ -16,13 +16,13 @@ class Snake:
             new_segment.goto(x=-self.MOVE_DISTANCE * i, y=0)
             self.segments.append(new_segment)
 
-    def move(self) -> bool:
+    def move(self) -> tuple[int, int]:
         for seg_num in range(len(self.segments) - 1, 0, -1):
             new_x = self.segments[seg_num - 1].xcor()
             new_y = self.segments[seg_num - 1].ycor()
             self.segments[seg_num].goto(new_x, new_y)
         self.head.forward(self.MOVE_DISTANCE)
-        return True
+        return self.head.position()
 
     def grow(self):
         new_segment = Turtle("square")

@@ -15,7 +15,7 @@ class Food:
     def eat(self):
         """Aktualisiert die Position des Essens, wenn es "gegessen" wird."""
         print(f"Food eaten ({self.pos})!")
-        self.pos = self.pos_random20(self.FIELD_SIZE, self.SEGMENT_SIZE)
+        self.pos = self.pos_random20()
         self.food.goto(self.pos)
 
     def __init__(self, SEGMENT_SIZE: int = 20, FIELD_SIZE: int = 600):
