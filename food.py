@@ -1,7 +1,7 @@
 from turtle import Turtle
 import random
 
-class Food:
+class Food(Turtle):
     def pos_random20(self) -> tuple[int, int]:
         """Generiert eine zufällige Position, die durch segment_size teilbar ist."""
         max_position = (self.FIELD_SIZE // 2) - self.SEGMENT_SIZE  # Maximaler Abstand vom Mittelpunkt
@@ -16,16 +16,19 @@ class Food:
         """Aktualisiert die Position des Essens, wenn es "gegessen" wird."""
         print(f"Food eaten ({self.pos})!")
         self.pos = self.pos_random20()
-        self.food.goto(self.pos)
+        self.goto(self.pos)
 
     def __init__(self, SEGMENT_SIZE: int = 20, FIELD_SIZE: int = 600):
+        super().__init__()
         self.SEGMENT_SIZE = SEGMENT_SIZE
-        self.FIELD_SIZE = FIELD_SIZE
-        self.food = Turtle("circle")
-        self.food.penup()
-        self.food.color("blue")
+        self.FIELD_SIZE = FIELD_SIZE - SEGMENT_SIZE*2
+        self.shape("circle")
+        self.shapesize(stretch_wid=0.5, stretch_len=0.5)  # Größe des Essens anpassen
+        self.penup()
+        self.color("blue")
+        self.speed("fastest")
         self.pos = self.pos_random20()  # Initiale Position setzen
-        self.food.goto(self.pos)
+        self.goto(self.pos)
 
     def __str__(self):
         return f"Food ({self.pos})"

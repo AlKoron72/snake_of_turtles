@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/brython"></script>
+</head>
+<body onload="brython()">
+    <script type="text/python">
+        import time
+        from turtle import Screen
+        from snake import Snake
+        from food import Food
+        from score import Score
+
+        SEGMENT_SIZE = 20
+        FIELD_SIZE = SEGMENT_SIZE * 30
+
+        screen = Screen()
+        screen.setup(width=FIELD_SIZE, height=FIELD_SIZE)
+        screen.title("Snake Game ")
+        screen.bgcolor("black")
+        screen.tracer(0)
+
+        game_is_on = True
+
+        my_snake = Snake(SEGMENT_SIZE)
+        my_food = Food(SEGMENT_SIZE=SEGMENT_SIZE, FIELD_SIZE=FIELD_SIZE)
+        my_score = Score()
+
+        screen.listen()
+        screen.onkey(key="Up", fun=lambda: my_snake.turn("up"))
+        screen.onkey(key="Down", fun=lambda: my_snake.turn("down"))
+        screen.onkey(key="Left", fun=lambda: my_snake.turn("left"))
+        screen.onkey(key="Right", fun=lambda: my_snake.turn("right"))
+
+        segments = my_snake.segments
+
+        while game_is_on:
+            screen.update()
+            snake_head_pos = my_snake.move()
+            
+            if my_snake.head.distance(my_food) < 15: # distance is a method of Turtle class
+                print("nyammm nyammm   nyammm")
+                my_food.eat()
+                my_snake.grow() 
+            
+            if int(snake_head_pos[0]) == int(my_food.pos[0]) and int(snake_head_pos[1]) == int(my_food.pos[1]):
+                print(f"Food: {snake_head_pos}, \nSnake: {my_snake}")
+                #my_food.eat()
+                #my_snake.grow()
+            time.sleep(0.1)
+
+        screen.exitonclick()
+
+    </script>
+    <canvas id="turtleCanvas" width="500" height="500"></canvas>
+</body>
+</html>

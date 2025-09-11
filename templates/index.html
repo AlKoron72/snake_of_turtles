@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Snake Game</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Snake Game</h1>
+    <canvas id="gameCanvas" width="600" height="600"></canvas>
+    <p style="text-align: center;">Score: <span id="score">0</span></p>
+
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        const SEGMENT_SIZE = 20;
+
+        let direction = "right";
+
+        // Event-Listener für Tasteneingaben
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "ArrowUp" && direction !== "down") direction = "up";
+            if (event.key === "ArrowDown" && direction !== "up") direction = "down";
+            if (event.key === "ArrowLeft" && direction !== "right") direction = "left";
+            if (event.key === "ArrowRight" && direction !== "left") direction = "right";
+        });
+
+        async function updateGame() {
+            // Sende die aktuelle Richtung an das Backend
+            const response = await fetch("/move", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ direction: direction }),
+            });
+            const gameState = await response.json();
+
+            // Zeichne das Spielfeld
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Zeichne die Schlange
+            gameState.snake.forEach(segment => {
+                ctx.fillStyle = "green";
+                ctx.fillRect(segment.x, segment.y, SEGMENT_SIZE, SEGMENT_SIZE);
+            });
+
+            // Zeichne das Essen
+            ctx.fillStyle = "red";
+            ctx.fillRect(gameState.food.x, gameState.food.y, SEGMENT_SIZE, SEGMENT_SIZE);
+
+            // Aktualisiere den Punktestand
+            document.getElementById("score").textContent = gameState.score;
+        }
+
+        // Spielschleife
+        setInterval(updateGame, 100);
+    </script>
+</body>
+</html>
