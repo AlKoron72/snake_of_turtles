@@ -15,8 +15,8 @@ my_snake = Snake(SEGMENT_SIZE, FIELD_SIZE, WALL_COLLISION)
 screen = setup_screen(FIELD_SIZE, turn_callback=my_snake.turn)
 
 # Andere Objekte initialisieren
-my_food = Food(SEGMENT_SIZE=SEGMENT_SIZE, FIELD_SIZE=FIELD_SIZE)
-my_score = Score(SCREEN_SIZE=FIELD_SIZE)
+my_food = Food(segment_size=SEGMENT_SIZE, field_size=FIELD_SIZE)
+my_score = Score(field_size=FIELD_SIZE)
 
 # Spielschleife
 game_is_on = True

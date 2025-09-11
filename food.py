@@ -10,7 +10,7 @@ class Food(Turtle):
         # Zufällige x- und y-Koordinaten generieren, die durch segment_size teilbar sind
         x = random.randint(min_position // self.SEGMENT_SIZE, max_position // self.SEGMENT_SIZE) * self.SEGMENT_SIZE
         y = random.randint(min_position // self.SEGMENT_SIZE, max_position // self.SEGMENT_SIZE) * self.SEGMENT_SIZE
-        return (x, y)
+        return x, y
         
     def eat(self):
         """Aktualisiert die Position des Essens, wenn es "gegessen" wird."""
@@ -18,10 +18,10 @@ class Food(Turtle):
         self.pos = self.pos_random20()
         self.goto(self.pos)
 
-    def __init__(self, SEGMENT_SIZE: int = 20, FIELD_SIZE: int = 600):
+    def __init__(self, segment_size: int = 20, field_size: int = 600):
         super().__init__()
-        self.SEGMENT_SIZE = SEGMENT_SIZE
-        self.FIELD_SIZE = FIELD_SIZE - SEGMENT_SIZE*2
+        self.SEGMENT_SIZE = segment_size
+        self.FIELD_SIZE = field_size - segment_size * 2
         self.shape("circle")
         self.shapesize(stretch_wid=0.5, stretch_len=0.5)  # Größe des Essens anpassen
         self.penup()

@@ -2,10 +2,10 @@ from turtle import Turtle
 START_LENGTH = 3
 
 class Snake:
-    def __init__(self, MOVE_DISTANCE: int = 2, FIELD_SIZE: int = 600, WALL_COLLISION: bool = True):
-        self.MOVE_DISTANCE = MOVE_DISTANCE
-        self.FIELD_SIZE = FIELD_SIZE
-        self.WALL_COLLISION = WALL_COLLISION
+    def __init__(self, move_distance: int = 2, field_size: int = 600, wall_collision: bool = True):
+        self.MOVE_DISTANCE = move_distance
+        self.FIELD_SIZE = field_size
+        self.WALL_COLLISION = wall_collision
         self.segments = []
         self.create_snake()
         self.head = self.segments[0]
@@ -48,10 +48,10 @@ class Snake:
         elif direction == "right" and self.head.heading() != 180:
             self.head.setheading(0)
             
-    def detect_collision(self, FIELD_SIZE: int, WALL_COllISSION: bool = True) -> bool:
+    def detect_collision(self, field_size: int, wall_collision: bool = True) -> bool:
         x, y = self.head.position()
-        half_field = FIELD_SIZE / 2
-        if WALL_COllISSION:
+        half_field = field_size / 2
+        if wall_collision:
             if x < -half_field or x > half_field or y < -half_field or y > half_field:
                 return True
             else:

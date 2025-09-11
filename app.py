@@ -11,7 +11,7 @@ FIELD_SIZE = SEGMENT_SIZE * 30
 
 # Spielobjekte
 my_snake = Snake(SEGMENT_SIZE)
-my_food = Food(SEGMENT_SIZE=SEGMENT_SIZE, FIELD_SIZE=FIELD_SIZE)
+my_food = Food(segment_size=SEGMENT_SIZE, field_size=FIELD_SIZE)
 my_score = Score()
 
 @app.route("/")

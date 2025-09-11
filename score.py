@@ -3,13 +3,13 @@ FONT = ("Arial", 24, "bold")
 ALIGN = "center"
 
 class Score(Turtle):
-    def __init__(self, SCREEN_SIZE: int = 600):
+    def __init__(self, field_size: int = 600):
         super().__init__()
-        self.SCREEN_SIZE = SCREEN_SIZE
+        self.SCREEN_SIZE = field_size
         self.score = 0
         self.hideturtle()
         self.penup()
-        self.goto(0, SCREEN_SIZE/2-40)  # Position oben in der Mitte
+        self.goto(0, field_size / 2 - 40)  # Position oben in der Mitte
         self.color("red")
         self.write(f"Score: {self.score}", align=ALIGN, font=FONT)
     
