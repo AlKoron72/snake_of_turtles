@@ -1,9 +1,13 @@
 import time
 from turtle import Screen
 from snake import Snake
+from food import Food
+
+SEGMENT_SIZE = 20
+FIELD_SIZE = SEGMENT_SIZE * 30
 
 screen = Screen()
-screen.setup(width=600, height=600)
+screen.setup(width=FIELD_SIZE, height=FIELD_SIZE)
 screen.title("Snake Game ")
 screen.bgcolor("black")
 screen.tracer(0)
@@ -11,6 +15,7 @@ screen.tracer(0)
 game_is_on = True
 
 my_snake = Snake()
+my_food = Food(SEGMENT_SIZE=SEGMENT_SIZE, FIELD_SIZE=FIELD_SIZE)
 
 screen.listen()
 screen.onkey(key="Up", fun=lambda: my_snake.turn("up"))
