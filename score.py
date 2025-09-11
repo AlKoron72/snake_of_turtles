@@ -10,7 +10,7 @@ class Score(Turtle):
         self.hideturtle()
         self.penup()
         self.goto(0, SCREEN_SIZE/2-40)  # Position oben in der Mitte
-        self.color("white")
+        self.color("red")
         self.write(f"Score: {self.score}", align=ALIGN, font=FONT)
     
     def increase_score(self):
