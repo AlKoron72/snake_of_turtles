@@ -11,7 +11,7 @@ screen = Screen()
 screen.setup(width=FIELD_SIZE[0], height=FIELD_SIZE[1])
 screen.bgcolor("black")
 screen.title("Pong Game")
-#screen.tracer(0)
+screen.tracer(0)
 
 left_paddle = Paddle([-350, 0])
 right_paddle = Paddle([350, 0])
@@ -26,14 +26,15 @@ screen.onkey(left_paddle.move_down, key="s")
 
 while game_is_on:
     screen.update()
-    time.sleep(0.01)
+    time.sleep(0.04)
     ball.move()
+    ball.collission_handling(left_paddle, right_paddle)
     
     if ball.xcor() > 380 or ball.xcor() < -380:
-        ball.reset_position()
         if ball.xcor() > 0:
-            scoreboard.l_point()
+            scoreboard.increase_score("left")
         else:
-            scoreboard.r_point()
+            scoreboard.increase_score("right")
+        ball.reset_position()
 
 screen.exitonclick()

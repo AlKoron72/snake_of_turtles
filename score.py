@@ -3,6 +3,7 @@ FONT = ("Arial", 24, "bold")
 ALIGN = "center"
 
 class Score(Turtle):
+    """ Score class to display and manage the score. """
     def __init__(self, field_size: int = 600):
         super().__init__()
         self.SCREEN_SIZE = field_size

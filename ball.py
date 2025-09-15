@@ -1,4 +1,5 @@
 from turtle import Turtle
+BALL_SPEED = 2
 
 class Ball(Turtle):
     """
@@ -17,26 +18,25 @@ class Ball(Turtle):
         self.dy = 2
         
     def move(self) -> None:
-        new_x = self.xcor() + self.dx
-        new_y = self.ycor() + self.dy
+        new_x = self.xcor() + BALL_SPEED * self.dx
+        new_y = self.ycor() + BALL_SPEED * self.dy
         self.goto(new_x, new_y)
         
     def reset_position(self) -> None:
         self.goto(0, 0)
         self.dx *= -1  # Change direction after scoring
     
-    def collide_with_paddle(self) -> None:
-        self.dx *= -1  # Reverse direction on paddle collision
+    def collide_with_paddle(self, left_paddle, right_paddle) -> None:
+        if (self.distance(left_paddle) < 50 and self.xcor() < -320) or (self.distance(right_paddle) < 50 and self.xcor() > 320):
+            self.dx *= -1  # Reverse direction on paddle collision
         
     def collide_with_wall(self) -> None:
-        self.dy *= -1  # Reverse vertical direction on wall collision
+        if self.ycor() > 290 or self.ycor() < -290:
+            self.dy *= -1  # Reverse vertical direction on wall collision
         
     def collission_handling(self, left_paddle, right_paddle) -> None:
-        if self.ycor() > 290 or self.ycor() < -290:
-            self.collide_with_wall()
-        
-        if (self.distance(right_paddle) < 50 and self.xcor() > 340) or (self.distance(left_paddle) < 50 and self.xcor() < -340):
-            self.collide_with_paddle()
+        self.collide_with_wall()
+        self.collide_with_paddle(left_paddle, right_paddle)
             
     def __str__(self) -> str:
         return f"Ball at ({self.xcor()}, {self.ycor()})"  
