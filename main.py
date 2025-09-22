@@ -38,6 +38,6 @@ while game_is_on:
         my_snake.grow()
         my_score.increase_score()
     
-    time.sleep(0.508)
+    time.sleep(0.1)
 
 screen.exitonclick()

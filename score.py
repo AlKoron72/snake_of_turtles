@@ -10,14 +10,15 @@ class Score(Turtle):
     def __init__(self, field_size: int = 600):
         super().__init__()
         self.SCREEN_SIZE = field_size
-        
+        # keeping score and highscore
         self.score = 0
         self.hight_score = self.read_high_score()
-        
+        # move turtle to position
         self.hideturtle()
         self.penup()
         self.goto(0, field_size / 2 - 40)  # Position oben in der Mitte
         self.color("red")
+        # update display of scores
         self.update_score_display()
 
     def update_score_display(self):
