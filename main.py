@@ -18,6 +18,7 @@ screen = setup_screen(FIELD_SIZE, turn_callback=my_snake.turn)
 my_food = Food(segment_size=SEGMENT_SIZE, field_size=FIELD_SIZE)
 my_score = Score(field_size=FIELD_SIZE)
 
+
 # Spielschleife
 game_is_on = True
 while game_is_on:
@@ -37,6 +38,6 @@ while game_is_on:
         my_snake.grow()
         my_score.increase_score()
     
-    time.sleep(0.08)
+    time.sleep(0.508)
 
 screen.exitonclick()
