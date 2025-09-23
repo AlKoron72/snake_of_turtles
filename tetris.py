@@ -210,19 +210,33 @@ class LineBlock(Block):
     )
 
 
-class LBlock(Block):
+class LBlock_r(Block):
     struct = (
         (1, 1),
         (1, 0),
         (1, 0),
     )
 
+class LBlock_l(Block):
+    struct = (
+        (1, 1),
+        (0, 1),
+        (0, 1),
+    )
 
-class ZBlock(Block):
+
+class ZBlock_r(Block):
     struct = (
         (0, 1),
         (1, 1),
         (1, 0),
+    )
+
+class ZBlock_l(Block):
+    struct = (
+        (1, 0),
+        (1, 1),
+        (0, 1),
     )
 
 
@@ -231,7 +245,7 @@ class BlocksGroup(pygame.sprite.OrderedUpdates):
     @staticmethod
     def get_random_block():
         return random.choice(
-            (SquareBlock, TBlock, LineBlock, LBlock, ZBlock))()
+            (SquareBlock, TBlock, LineBlock, LBlock_l, LBlock_r, ZBlock_r, ZBlock_l))()
 
     def __init__(self, *args, **kwargs):
         super().__init__(self, *args, **kwargs)
