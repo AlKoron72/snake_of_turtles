@@ -12,7 +12,7 @@ class Score(Turtle):
         self.SCREEN_SIZE = field_size
         # keeping score and highscore
         self.score = 0
-        self.hight_score = self.read_high_score()
+        self.high_score = self.read_high_score()
         # move turtle to position
         self.hideturtle()
         self.penup()
@@ -23,7 +23,7 @@ class Score(Turtle):
 
     def update_score_display(self):
         self.clear()
-        self.write(f"Score: {self.score} | High Score: {self.hight_score}", align=ALIGN, font=FONT)
+        self.write(f"Score: {self.score} | High Score: {self.high_score}", align=ALIGN, font=FONT)
     
     def read_high_score(self) -> int:
         try:
@@ -36,19 +36,19 @@ class Score(Turtle):
     
     def write_high_score(self):
         with open(PATH_HIGH_SCORE, "w") as file:
-            file.write(str(self.hight_score))
+            file.write(str(self.high_score))
             
     def increase_score(self):
         self.score += 1
         self.update_score_display()
-        if self.score > self.hight_score:
-            self.hight_score = self.score
+        if self.score > self.high_score:
+            self.high_score = self.score
             self.update_score_display()
             self.write_high_score()
         print(self)
    
     def __str__(self):
-        return f"Score: {self.score} | High Score: {self.hight_score}"
+        return f"Score: {self.score} | High Score: {self.high_score}"
     
 if __name__ == "__main__":
     my_score = Score()
