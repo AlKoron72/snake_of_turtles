@@ -2,7 +2,7 @@ from turtle import Turtle
 
 FONT = ("Arial", 24, "bold")
 ALIGN = "center"
-PATH_HIGH_SCORE = "data.txt"
+PATH_HIGH_SCORE = "snake/data.txt"
 
 class Score(Turtle):
     """ Score class to display and manage the score. """

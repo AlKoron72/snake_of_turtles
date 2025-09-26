@@ -1,7 +1,7 @@
 import time
 from screen_config import setup_screen
 from snake import Snake
-from food import Food
+from snake.food import Food
 from score import Score
 
 SEGMENT_SIZE = 20

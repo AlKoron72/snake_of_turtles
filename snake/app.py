@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request, render_template
 from snake import Snake
-from food import Food
+from snake.food import Food
 from score import Score
 
 app = Flask(__name__)

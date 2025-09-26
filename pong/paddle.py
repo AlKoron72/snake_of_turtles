@@ -6,7 +6,7 @@ class Paddle(Turtle):
     Paddle class for Pong game.
 
     Args:
-        Turtle (_type_): _description_
+        turtle (_type_): _description_
     """
     def __init__(self, position: list[float]):
         super().__init__()
