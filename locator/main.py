@@ -1,23 +1,71 @@
 import time
 from turtle import Turtle, Screen
 from typing import Tuple
-
 from data_handler import DataHandler
+import pandas as pd
 
 game_on = True
+misses = 0
 IMAGE_PATH = r"locator\blank_states_img.gif"
-TIME = 51
+CSV_PATH = "locator/50_states.csv"
+TIME = 50
+FONT = ("Arial", 12, "bold")
+ALIGN = "center"
 
-states_data = DataHandler("50_states.csv")
+#from data_handler import DataHandler
+#data_oop = DataHandler(CSV_PATH)
+#print(data_oop.data.state)
+
+
+def load_from_csv(source: str):
+    print(f"SOURCE: {source}")
+    try:
+        return pd.read_csv(source)
+    except FileNotFoundError:
+        print("File not found.")
+        print("Please check the file path.")
+        print(f"Your provided file path: {source}")
+
+states_data = load_from_csv(CSV_PATH)
+states_list = states_data.state.to_list()
 
 def move_input_to(text: str, correct:bool = True):
     print(f"moving it ({text}) to: {correct}")
 
+def place_right(text:str) -> None:
+    print(f"Placing -> {text}")
+    for_koords = states_data[text == states_data.state]
+    
+    x_pos = int(for_koords.iloc[0].x)
+    y_pos = int(for_koords.iloc[0].y)
+#    x_pos = for_koords.x
+#    y_pos = for_koords.y
+    print(f"at: {x_pos}/{y_pos}")
+    turd = Turtle()
+    turd.pencolor("green")
+    turd.goto(x_pos, y_pos)
+    turd.clear()
+    turd.write(text, font=FONT, align=ALIGN)
+    
+
+def check_for_str_in_list(check:str):
+    if check in  states_list:
+        print("YO List") 
+    else:
+        print("list NO!!!")
+        misses += 1
+    
 def check_for_str(check:str) -> None:
     low_check = check.lower()
-    if low_check in states_data.data.state:
-        print(f"JA!!! {low_check}")
-        
+    #print(states_data.state)
+    
+    for state in states_data.state:
+        #print(f"{state}/{check}")
+        if low_check == state.lower():
+            print(f"JA!!! {low_check}")
+            place_right(state)
+        else:
+            print(f"nö: {check}")    
 
 
 def check_for(pos: list) -> int:
@@ -45,12 +93,13 @@ pos_clicked = img_turtle.onclick(get_mouse_pos)
 looper = True
 timer = 0
 while looper:
-    antwort = screen.textinput(f"Antwort {timer+1}", "Antwort")
+    antwort = screen.textinput(f"Antwort {timer+1}/{TIME} MISSES: {misses}", "Antwort")
     print(antwort.lower())
     check_for_str(antwort)
+    check_for_str_in_list(antwort)
     timer += 1
     
-    if timer > TIME:
+    if timer > TIME or antwort.lower() == "stop":
         looper = False
     
 screen.listen()

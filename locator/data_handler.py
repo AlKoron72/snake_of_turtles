@@ -20,8 +20,8 @@ class DataHandler:
 
     def load_from_csv(self) -> list[str]:
         try:
-            with open(self.source) as file:
-                return file.readlines()
+            with pd.read_csv(self.source) as file:
+                return file
         except FileNotFoundError:
             print("File not found.")
             print("Please check the file path.")
