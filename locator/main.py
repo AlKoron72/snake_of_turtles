@@ -16,6 +16,8 @@ ALIGN = "center"
 #data_oop = DataHandler(CSV_PATH)
 #print(data_oop.data.state)
 
+def end_result():
+    print(f"end relsult: {misses}")
 
 def load_from_csv(source: str):
     print(f"SOURCE: {source}")
@@ -28,6 +30,7 @@ def load_from_csv(source: str):
 
 states_data = load_from_csv(CSV_PATH)
 states_list = states_data.state.to_list()
+missed_list = states_list.copy()
 
 def move_input_to(text: str, correct:bool = True):
     print(f"moving it ({text}) to: {correct}")
@@ -49,11 +52,11 @@ def place_right(text:str) -> None:
     
 
 def check_for_str_in_list(check:str):
-    if check in  states_list:
+    if check in states_list:
         print("YO List") 
     else:
         print("list NO!!!")
-        misses += 1
+        #misses += 1
     
 def check_for_str(check:str) -> None:
     low_check = check.lower()
@@ -64,6 +67,7 @@ def check_for_str(check:str) -> None:
         if low_check == state.lower():
             print(f"JA!!! {low_check}")
             place_right(state)
+            missed_list.remove(state)
         else:
             print(f"nö: {check}")    
 
@@ -90,6 +94,15 @@ img_turtle = Turtle()
 img_turtle.shape(IMAGE_PATH) # uses loaded image from screen.addshape
 pos_clicked = img_turtle.onclick(get_mouse_pos)
 
+#states_to_learn.csv
+WRITE_PATH = "locator/states_to_learn.csv"
+def write_end():
+    data_to_write = pd.DataFrame(missed_list)
+    try:
+        data_to_write.to_csv(WRITE_PATH)
+    except:
+        print("unable to write")
+
 looper = True
 timer = 0
 while looper:
@@ -99,9 +112,7 @@ while looper:
     check_for_str_in_list(antwort)
     timer += 1
     
-    if timer > TIME or antwort.lower() == "stop":
+    if timer >= TIME or antwort.lower() == "stop":
+        write_end()
         looper = False
     
-screen.listen()
-
-screen.mainloop()
