@@ -1,13 +1,13 @@
-import time
+#import time
+#from data_handler import DataHandler
 from turtle import Turtle, Screen
 from typing import Tuple
-from data_handler import DataHandler
 import pandas as pd
 
 game_on = True
 misses = 0
-IMAGE_PATH = r"locator\blank_states_img.gif"
-CSV_PATH = "locator/50_states.csv"
+IMAGE_PATH = "blank_states_img.gif"
+CSV_PATH = "50_states.csv"
 TIME = 50
 FONT = ("Arial", 12, "bold")
 ALIGN = "center"
@@ -17,7 +17,7 @@ ALIGN = "center"
 #print(data_oop.data.state)
 
 def end_result():
-    print(f"end relsult: {misses}")
+    print(f"end result: {misses}")
 
 def load_from_csv(source: str):
     print(f"SOURCE: {source}")
@@ -80,6 +80,9 @@ def check_for(pos: list) -> int:
     if pos in states_data.data.state:
         state = states_data.data.state[pos]
 
+    print(f"state: {state} onomatopoeia: {x}/{y}")
+    return 42
+
 def get_mouse_pos(x: float, y: float) -> Tuple[float, float]:
     print(f"Mouse clicked at ({x}, {y})")
     return x, y
@@ -92,16 +95,16 @@ screen.title("Locator-Game")
 screen.addshape(IMAGE_PATH) # load image for turtle later
 img_turtle = Turtle()
 img_turtle.shape(IMAGE_PATH) # uses loaded image from screen.addshape
-pos_clicked = img_turtle.onclick(get_mouse_pos)
+#pos_clicked = img_turtle.onclick(get_mouse_pos)
 
 #states_to_learn.csv
-WRITE_PATH = "locator/states_to_learn.csv"
+WRITE_PATH = "states_to_learn.csv"
 def write_end():
     data_to_write = pd.DataFrame(missed_list)
     try:
         data_to_write.to_csv(WRITE_PATH)
-    except:
-        print("unable to write")
+    except Exception as e:
+        print(f"unable to write {e}")
 
 looper = True
 timer = 0
